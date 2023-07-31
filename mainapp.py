@@ -3,19 +3,20 @@ import streamlit as st
 
 st.write("""
 # Simple Stock Price App
-
-Shown are the stock closing price and volume of Google!
-
 """)
 
-# https://towardsdatascience.com/how-to-get-stock-data-using-python-c0de1df17e75
-#define the ticker symbol
-tickerSymbol = 'GOOGL'
-#get data on this ticker
-tickerData = yf.Ticker(tickerSymbol)
-#get the historical prices for this ticker
-tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
-# Open	High	Low	Close	Volume	Dividends	Stock Splits
+# User input for the ticker symbol
+user_input = st.text_input("Enter a Ticker Symbol (e.g., GOOGL, AAPL, MSFT)", "GOOGL")
 
-st.line_chart(tickerDf.Close)
-st.line_chart(tickerDf.Volume)
+# Get data on the user-specified ticker
+tickerData = yf.Ticker(user_input)
+try:
+    # Get the historical prices for this ticker
+    tickerDf = tickerData.history(period='1d', start='2010-5-31', end='2020-5-31')
+    st.write(f"## Stock Closing Price of {user_input}")
+    st.line_chart(tickerDf['Close'])
+
+    st.write(f"## Stock Volume of {user_input}")
+    st.line_chart(tickerDf['Volume'])
+except:
+    st.write("Invalid Ticker Symbol. Please enter a valid ticker symbol.")
