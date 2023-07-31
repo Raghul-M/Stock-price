@@ -2,7 +2,7 @@
 
 This is a simple stock price web application built with Streamlit that allows users to visualize the closing price and volume of any stock by entering its ticker symbol. The app uses the `yfinance` library to fetch historical stock data.
 
-(demo1.png)
+![Stock App Screenshot](demo1.png)
 
 ## Getting Started
 
